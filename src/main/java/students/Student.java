@@ -1,8 +1,11 @@
 package students;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class Student {
+public final class Student {
   private String name;
   private float gpa;
   private List<String> courses; // "should" be a set...!
@@ -19,7 +22,7 @@ public class Student {
     Student self = new Student();
     self.name = name;
     self.gpa = gpa;
-    self.courses = 
+    self.courses = new ArrayList<>(Arrays.asList(courses));
     self.invariant();
     return self;
   }
@@ -43,6 +46,15 @@ public class Student {
 //  }
 
   public List<String> getCourses() {
-    return courses;
+    return Collections.unmodifiableList(courses);
+  }
+
+  @Override
+  public String toString() {
+    return "Student{" +
+        "name='" + name + '\'' +
+        ", gpa=" + gpa +
+        ", courses=" + courses +
+        '}';
   }
 }
