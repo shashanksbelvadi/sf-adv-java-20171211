@@ -9,20 +9,6 @@ interface StudentCriterion {
   boolean test(Student s);
 }
 
-class SmartCriterion implements StudentCriterion {
-  @Override
-  public boolean test(Student s) {
-    return s.getGpa() > 3.0F;
-  }
-}
-
-class EnthusiasticCriterion implements StudentCriterion {
-  @Override
-  public boolean test(Student s) {
-    return s.getCourses().size() >= 3;
-  }
-}
-
 public class School {
   public static List<Student> getStudentsByCriterion(List<Student> in, StudentCriterion crit) {
     List<Student> rv = new ArrayList<>();
@@ -85,9 +71,9 @@ public class School {
 //    showAll(getEnthusiasticStudents(roster, 2));
 
     System.out.println("Smart:");
-    showAll(getStudentsByCriterion(roster, new SmartCriterion()));
+    showAll(getStudentsByCriterion(roster, new Student.SmartCriterion()));
     System.out.println("Enthusiastic:");
-    showAll(getStudentsByCriterion(roster, new EnthusiasticCriterion()));
+    showAll(getStudentsByCriterion(roster, new Student.EnthusiasticCriterion()));
 
   }
 }

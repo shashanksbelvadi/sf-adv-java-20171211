@@ -57,4 +57,18 @@ public final class Student {
         ", courses=" + courses +
         '}';
   }
+
+  static class SmartCriterion implements StudentCriterion {
+    @Override
+    public boolean test(Student s) {
+      return s.gpa > 3.0F;
+    }
+  }
+
+  static class EnthusiasticCriterion implements StudentCriterion {
+    @Override
+    public boolean test(Student s) {
+      return s.courses.size() >= 3;
+    }
+  }
 }
