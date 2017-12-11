@@ -71,7 +71,7 @@ public class School {
 //    showAll(getEnthusiasticStudents(roster, 2));
 
     System.out.println("Smart:");
-    showAll(getStudentsByCriterion(roster, new Student.SmartCriterion()));
+    showAll(getStudentsByCriterion(roster, Student.getSmartCriterion()));
     System.out.println("Enthusiastic:");
     showAll(getStudentsByCriterion(roster, new Student.EnthusiasticCriterion()));
 

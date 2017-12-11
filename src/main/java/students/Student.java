@@ -58,7 +58,14 @@ public final class Student {
         '}';
   }
 
-  static class SmartCriterion implements StudentCriterion {
+  private static final StudentCriterion smartCriterion = new SmartCriterion();
+
+  public static StudentCriterion getSmartCriterion() {
+//    return new SmartCriterion();
+    return smartCriterion;
+  }
+
+  private static class SmartCriterion implements StudentCriterion {
     @Override
     public boolean test(Student s) {
       return s.gpa > 3.0F;
