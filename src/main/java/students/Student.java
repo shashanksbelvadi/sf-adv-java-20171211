@@ -58,20 +58,49 @@ public final class Student {
         '}';
   }
 
-  private static final StudentCriterion smartCriterion = new SmartCriterion();
-
   public static StudentCriterion getSmartCriterion() {
 //    return new SmartCriterion();
     return smartCriterion;
   }
 
-  private static class SmartCriterion implements StudentCriterion {
-    @Override
-    public boolean test(Student s) {
-      return s.gpa > 3.0F;
-    }
-  }
+  private static final StudentCriterion smartCriterion = s ->  s.gpa > 3.0F ;
 
+//  private static final StudentCriterion smartCriterion = (s) -> /*{*/
+//    /*return*/ s.gpa > 3.0F /*;*/
+//  /*}*/;
+//
+//  private static final StudentCriterion smartCriterion = (s) -> {
+//      System.out.println("lambda inner...");
+//      return s.gpa > 3.0F;
+//    };
+
+//  private static final StudentCriterion smartCriterion = /*new StudentCriterion() {*/
+////    @Override
+//    /*public boolean test*/(/*Student*/ s) -> {
+//    System.out.println("anonymous inner...");
+//    return s.gpa > 3.0F;
+//  }
+//  /*}*/;
+//
+
+//  private static final StudentCriterion smartCriterion = new StudentCriterion() {
+//    @Override
+//    public boolean test(Student s) {
+//      System.out.println("anonymous inner...");
+//      return s.gpa > 3.0F;
+//    }
+//  };
+
+  //  private static final StudentCriterion smartCriterion = new /*SmartCriterion();
+//
+//  private static class SmartCriterion implements */StudentCriterion() {
+//    @Override
+//    public boolean test(Student s) {
+//      System.out.println("anonymous inner...");
+//      return s.gpa > 3.0F;
+//    }
+//  };
+//
   static class EnthusiasticCriterion implements StudentCriterion {
     @Override
     public boolean test(Student s) {
