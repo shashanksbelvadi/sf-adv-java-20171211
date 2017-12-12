@@ -2,25 +2,13 @@ package students;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
-interface StudentCriterion {
-  boolean test(Student s);
-}
-
-interface Silly {
-  boolean daft(Object s);
-}
+import java.util.function.Predicate;
 
 public class School {
-  public static List<Student> getStudentsByCriterion(List<Student> in, Silly crit) {
-    return null;
-  }
-
-  public static List<Student> getStudentsByCriterion(List<Student> in, StudentCriterion crit) {
-    List<Student> rv = new ArrayList<>();
-    for (Student s : in) {
+  public static <E> List<E> getByCriterion(List<E> in, Predicate<E> crit) {
+    List<E> rv = new ArrayList<>();
+    for (E s : in) {
       if (crit.test(s)) {
         rv.add(s);
       }
@@ -28,34 +16,8 @@ public class School {
     return rv;
   }
 
-
-//  public static List<Student> getSmartStudents(List<Student> in, float threshold) {
-//    List<Student> rv = new ArrayList<>();
-//    for (Student s : in) {
-//      if (s.getGpa() > threshold) {
-//        rv.add(s);
-//      }
-//    }
-//    return rv;
-//  }
-//
-//  public static List<Student> getEnthusiasticStudents(List<Student> in, int threshold) {
-//    List<Student> rv = new ArrayList<>();
-//    for (Student s : in) {
-//      if (s.getCourses().size() > threshold) {
-//        rv.add(s);
-//      }
-//    }
-//    return rv;
-//  }
-//
-
-  public static StudentCriterion and(StudentCriterion first, StudentCriterion second) {
-    return s -> first.test(s) && second.test(s);
-  }
-
-  public static void showAll(Iterable<Student> students) {
-    for (Student s : students) {
+  public static <E> void showAll(Iterable<E> in) {
+    for (E s : in) {
       System.out.println("> " + s);
     }
     System.out.println("------------------------------");
@@ -81,34 +43,29 @@ public class School {
     roster.sort(new NameOrder());
     showAll(roster);
 
-//    System.out.println("Smart:");
-//    showAll(getSmartStudents(roster, 3.0F));
-//    System.out.println("Enthusiastic:");
-//    showAll(getEnthusiasticStudents(roster, 2));
-
     System.out.println("Smart:");
-    showAll(getStudentsByCriterion(roster, Student.getSmartCriterion()));
+    showAll(getByCriterion(roster, Student.getSmartCriterion()));
     System.out.println("Enthusiastic:");
-//    showAll(getStudentsByCriterion(roster, new Student.EnthusiasticCriterion()));
-    showAll(getStudentsByCriterion(roster, Student.getEnthusiasticCriterion(2)));
+    showAll(getByCriterion(roster, Student.getEnthusiasticCriterion(2)));
     System.out.println("First half of alphabet:");
-    showAll(getStudentsByCriterion(roster, (Student s) -> s.getName().charAt(0) <= 'M'));
+    showAll(getByCriterion(roster, (Student s) -> s.getName().charAt(0) <= 'M'));
 
-//    StudentCriterion sss = s -> s.getCourses().size() > 2;
-//    ((Silly)(s -> s.getCourses().size() > 2)).;
-
-    StudentCriterion notVerySmart = s -> s.getGpa() < 3.5F;
-    StudentCriterion somewhatSmart = s -> s.getGpa() > 2.5F;
+    Predicate<Student> notVerySmart = s -> s.getGpa() < 3.5F;
+    Predicate<Student> somewhatSmart = s -> s.getGpa() > 2.5F;
 
     System.out.println("somewhat smart:");
-    showAll(getStudentsByCriterion(roster, somewhatSmart));
+    showAll(getByCriterion(roster, somewhatSmart));
 
     System.out.println("not very smart:");
-    showAll(getStudentsByCriterion(roster, notVerySmart));
+    showAll(getByCriterion(roster, notVerySmart));
 
     System.out.println("somewhat and not very, smart:");
-    StudentCriterion intersection = and(somewhatSmart, notVerySmart);
-    showAll(getStudentsByCriterion(roster, intersection));
+    Predicate intersection = somewhatSmart.and(notVerySmart);
+    showAll(getByCriterion(roster, intersection));
+
+    List<String> names = Arrays.asList("Fred", "Jim", "Sheila", "van Buren", "van Rental");
+    showAll(getByCriterion(names, s -> s.length() > 4));
+    showAll(getByCriterion(names, (s -> Character.isLowerCase(s.charAt(0)))));
 
   }
 }

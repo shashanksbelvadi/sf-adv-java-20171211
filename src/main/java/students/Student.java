@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public final class Student {
   private String name;
@@ -35,16 +36,6 @@ public final class Student {
     return gpa;
   }
 
-  // mutation should verify invariants at end
-  // WOULD optimize out entirely, but don't do it!!!
-//  private static final boolean DEVELOPMENT = false;
-//  public void setGpa(float gpa) {
-//    this.gpa = gpa;
-//    if (DEVELOPMENT) invariant();
-//   run this code with -ea (-enableassertions) flag
-//    assert invariant(); // invariant check
-//  }
-
   public List<String> getCourses() {
     return Collections.unmodifiableList(courses);
   }
@@ -58,60 +49,13 @@ public final class Student {
         '}';
   }
 
-  public static StudentCriterion getSmartCriterion() {
-//    return new SmartCriterion();
+  public static Predicate<Student> getSmartCriterion() {
     return smartCriterion;
-//    return s -> s.gpa > 3.0F;
   }
 
-  private static final StudentCriterion smartCriterion = s ->  s.gpa > 3.0F ;
+  private static final Predicate<Student> smartCriterion = s ->  s.gpa > 3.0F ;
 
-//  private static final StudentCriterion smartCriterion = (s) -> /*{*/
-//    /*return*/ s.gpa > 3.0F /*;*/
-//  /*}*/;
-//
-//  private static final StudentCriterion smartCriterion = (s) -> {
-//      System.out.println("lambda inner...");
-//      return s.gpa > 3.0F;
-//    };
-
-//  private static final StudentCriterion smartCriterion = /*new StudentCriterion() {*/
-////    @Override
-//    /*public boolean test*/(/*Student*/ s) -> {
-//    System.out.println("anonymous inner...");
-//    return s.gpa > 3.0F;
-//  }
-//  /*}*/;
-//
-
-//  private static final StudentCriterion smartCriterion = new StudentCriterion() {
-//    @Override
-//    public boolean test(Student s) {
-//      System.out.println("anonymous inner...");
-//      return s.gpa > 3.0F;
-//    }
-//  };
-
-  //  private static final StudentCriterion smartCriterion = new /*SmartCriterion();
-//
-//  private static class SmartCriterion implements */StudentCriterion() {
-//    @Override
-//    public boolean test(Student s) {
-//      System.out.println("anonymous inner...");
-//      return s.gpa > 3.0F;
-//    }
-//  };
-//
-//  static class EnthusiasticCriterion implements StudentCriterion {
-//    @Override
-//    public boolean test(Student s) {
-//      return s.courses.size() >= 3;
-//    }
-//  }
-
-  public static StudentCriterion getEnthusiasticCriterion(int threshold) {
-//    int mythreshold = threshold;
-//    mythreshold ++;
+  public static Predicate<Student> getEnthusiasticCriterion(int threshold) {
     return s -> s.getCourses().size() > threshold;
   }
 }
