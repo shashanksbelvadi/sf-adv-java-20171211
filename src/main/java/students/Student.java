@@ -61,6 +61,7 @@ public final class Student {
   public static StudentCriterion getSmartCriterion() {
 //    return new SmartCriterion();
     return smartCriterion;
+//    return s -> s.gpa > 3.0F;
   }
 
   private static final StudentCriterion smartCriterion = s ->  s.gpa > 3.0F ;
@@ -101,10 +102,16 @@ public final class Student {
 //    }
 //  };
 //
-  static class EnthusiasticCriterion implements StudentCriterion {
-    @Override
-    public boolean test(Student s) {
-      return s.courses.size() >= 3;
-    }
+//  static class EnthusiasticCriterion implements StudentCriterion {
+//    @Override
+//    public boolean test(Student s) {
+//      return s.courses.size() >= 3;
+//    }
+//  }
+
+  public static StudentCriterion getEnthusiasticCriterion(int threshold) {
+//    int mythreshold = threshold;
+//    mythreshold ++;
+    return s -> s.getCourses().size() > threshold;
   }
 }
