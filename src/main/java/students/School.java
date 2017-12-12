@@ -17,9 +17,10 @@ public class School {
   }
 
   public static <E> void showAll(Iterable<E> in) {
-    for (E s : in) {
-      System.out.println("> " + s);
-    }
+    in.forEach(x -> System.out.println(x));
+//    for (E s : in) {
+//      System.out.println("> " + s);
+//    }
     System.out.println("------------------------------");
   }
 
