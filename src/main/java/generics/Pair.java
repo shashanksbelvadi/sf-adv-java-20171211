@@ -31,10 +31,14 @@ public class Pair<E extends Sized & Colored /*, F*/> {
         && left.getColor().equals(right.getColor());
   }
 
-  public static <F> F extractLeft(Pair<F> p) {
+  public static <F extends Sized & Colored> F extractLeft(Pair<F> p) {
     return p.getLeft();
   }
 
+//  public static <F extends Sized & Colored, X extends Sized & Colored> F extractLeft(Pair<F> p, Pair<X> px) {
+//    return p.getLeft();
+//  }
+//
   @Override
   public String toString() {
     return "Pair{" +
