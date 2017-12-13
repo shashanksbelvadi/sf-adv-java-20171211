@@ -20,8 +20,10 @@ public class Concordance {
   public static void main(String[] args) {
     try (Stream<String> in = Files.lines(Paths.get("PrideAndPrejudice.txt"))) {
       in
-          .map(s -> s.toLowerCase())
-          .flatMap(s -> WORD_BOUNDARIES.splitAsStream(s))
+//          .map(s -> s.toLowerCase())
+          .map(String::toLowerCase)
+//          .flatMap(s -> WORD_BOUNDARIES.splitAsStream(s))
+          .flatMap(WORD_BOUNDARIES::splitAsStream)
           .filter(s -> s.length() > 0)
 //          .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
           .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -31,7 +33,8 @@ public class Concordance {
           .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
           .limit(200)
           .map(e -> String.format("%20s : %5d", e.getKey(), e.getValue()))
-          .forEach(s -> System.out.println(s));
+//          .forEach(s -> System.out.println(s))
+          .forEach(System.out::println);
     } catch (IOException ioe) {
       ioe.printStackTrace(System.err);
     }

@@ -35,8 +35,15 @@ public class Averager {
     DoubleStream.generate(() -> ThreadLocalRandom.current().nextDouble(-Math.PI, +Math.PI))
         .limit(200_000_000L)
 //        .parallel()
-        .map(x -> Math.sin(x))
-        .collect(()->new Average(), (a, d) -> a.include(d), (a1, a2) -> a1.merge(a2))
+//        .map(x -> Math.sin(x))
+        .map(Math::sin)
+//        .collect(()->new Average(),
+//            (a, d) -> a.include(d),
+//            (a1, a2) -> a1.merge(a2))
+        .collect(
+            Average::new,
+            Average::include,
+            Average::merge)
         .use(x -> System.out.println("Average is " + x));
     long time = System.nanoTime() - start;
     System.out.println("Time was " + (time / 1_000_000_000.0) + " seconds");
