@@ -27,7 +27,7 @@ public class StudentGrades {
         Student.ofNameGradeCourses("Sheila", 3.9F,
             "Math", "Physics", "Astrophysics"));
     Map<String, String> results = listRoster.stream()
-        .collect(Collectors.groupingBy(s -> getGrade(s),
+        .collect(Collectors.groupingBy(StudentGrades::getGrade/*s -> getGrade(s)*/,
             Collectors.mapping(s -> s.getName(), Collectors.joining(", "))));
 
     results.entrySet().stream()
