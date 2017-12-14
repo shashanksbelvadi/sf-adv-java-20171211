@@ -29,10 +29,12 @@ class Consumer implements Runnable {
           continue;
         }
       }
-      if (datablock[0] != datablock[1]) {
-        System.out.println("!!! ERROR, got " + datablock[0] + " and " + datablock[1]);
-      } else {
-        counters[datablock[0]]++;
+      if (datablock != null) {
+        if (datablock[0] != datablock[1]) {
+          System.out.println("!!! ERROR, got " + datablock[0] + " and " + datablock[1]);
+        } else {
+          counters[datablock[0]]++;
+        }
       }
     }
     System.out.println("Consumer shutting down...");
